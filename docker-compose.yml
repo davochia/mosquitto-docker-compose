@@ -4,28 +4,23 @@ services:
   feeder:
     image: docker-registry.rahti.csc.fi/student480/toyota-task-one:1.0
     environment:
-      - MQTT_URL=mqtt-test.rahtiapp.fi
-      - MQTT_PORT=433
+      - MQTT_URL=mosquitto
+      - MQTT_PORT=1883
       - CLIENT_ID=student480
-    # networks:
-    #   - student480
+    networks:
+      - student480
 
   mosquitto:
     image: eclipse-mosquitto:latest
-    ports:
-      - 1883:1883
-      - 8883:8883
-    # networks:
-    #   - student480
     volumes:
-      - ./mosquitto/conf/
-        # - ./conf:/mosquitto/conf
-        # - ./data:/mosquitto/data
-        # - ./log:/mosquitto/log
-    depends_on:
-      - feeder
+      - ./conf:/mosquitto/config
+    networks:
+      - student480
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+    restart: always
 
 networks:
-  default:
-    external:
-      name: student480
+  student480:
+    # external: true
