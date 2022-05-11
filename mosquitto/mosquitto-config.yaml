@@ -4,11 +4,10 @@ metadata:
   name: mosquitto-config
 data:
   mosquitto.conf: |-
-    listener 3000
+    listener 8883
+    port 1883
     allow_anonymous true
-    cafile conf/ca.crt
-    certfile conf/server.crt
-    keyfile conf/server.key
+
 ---
 apiVersion: v1
 kind: Secret
@@ -18,3 +17,7 @@ type: Opaque
 data:
   secret.file: |
     RGF2aWQgT2NoaWEgc29mdCBkZWZpbmUgcHJvZHVjdCBjb3Vyc2U=
+
+#  cafile conf/ca.crt
+#  certfile conf/server.crt
+#  keyfile conf/server.key

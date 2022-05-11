@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-red
+  labels:
+    app: node-red
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-red
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: node-red
+    spec:
+      containers:
+        - image: nodered/node-red
+          imagePullPolicy: Always
+          name: node-red
+          ports:
+            - containerPort: 1880
+              protocol: TCP
+          resources: {}
+          env:
+            - name: TZ
+              value: Europe/London
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+          volumeMounts:
+            - name: node-red-data
+              mountPath: /data
+      volumes:
+        - name: node-red-data
+          persistentVolumeClaim:
+            claimName: node-red-claim
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: node-red
+  name: node-red
+spec:
+  host: nodered.student480.rahtiapp.fi
+  port:
+    targetPort: 1880
+  tls:
+    termination: passthrough
+  to:
+    kind: Service
+    name: node-red

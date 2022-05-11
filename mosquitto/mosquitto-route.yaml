@@ -1,18 +1,32 @@
-apiVersion: extensions/v1beta1
+# apiVersion: extensions/v1beta1
 
-kind: Ingress
+# kind: Ingress
 
+# metadata:
+#   name: mosquitto-service
+
+# spec:
+#   rules:
+#     - host: mqtt.student480.rahtiapp.fi
+
+#       http:
+#         paths:
+#           - path: /
+
+#             backend:
+#               serviceName: mosquitto-service
+#               servicePort: 1883
+
+apiVersion: route.openshift.io/v1
+kind: Route
 metadata:
-  name: mosquitto-service
-
+  name: student480
 spec:
-  rules:
-    - host: mqtt.student480.rahtiapp.fi
-
-      http:
-        paths:
-          - path: /
-
-            backend:
-              serviceName: mosquitto-service
-              servicePort: 1883
+  host: mqtt.student480.rahtiapp.fi
+  port:
+    targetPort: 1883
+  tls:
+    termination: passthrough
+  to:
+    kind: Service
+    name: mosquitto
