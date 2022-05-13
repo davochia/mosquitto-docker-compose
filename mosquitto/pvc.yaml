@@ -2,13 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: node-red-claim
-  labels:
-    app: node-red
-  # namespace: node-red
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
-status: {}

@@ -3,34 +3,25 @@ kind: Deployment
 metadata:
   name: node-red
   labels:
+    name: node-red
     app: node-red
 spec:
   replicas: 1
   selector:
     matchLabels:
+      name: node-red
       app: node-red
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: node-red
+        name: node-red
     spec:
       containers:
         - image: nodered/node-red
-          imagePullPolicy: Always
           name: node-red
           ports:
             - containerPort: 1880
-              protocol: TCP
-          resources: {}
-          env:
-            - name: TZ
-              value: Europe/London
-            - name: PGID
-              value: "1000"
-            - name: PUID
-              value: "1000"
           volumeMounts:
             - name: node-red-data
               mountPath: /data
@@ -49,9 +40,12 @@ metadata:
 spec:
   host: nodered.student480.rahtiapp.fi
   port:
+    port: 1880
     targetPort: 1880
   tls:
     termination: passthrough
   to:
     kind: Service
     name: node-red
+status:
+  ingress: []
