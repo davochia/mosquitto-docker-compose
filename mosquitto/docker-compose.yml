@@ -1,26 +1,4 @@
 version: "3.9"
-
 services:
-  feeder:
-    image: docker-registry.rahti.csc.fi/student480/toyota-task-one:1.0
-    environment:
-      - MQTT_URL=mosquitto
-      - MQTT_PORT=3000
-      - CLIENT_ID=student480
-    networks:
-      - student480
-
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    volumes:
-      - ./conf:/mosquitto/config
-    networks:
-      - student480
-    ports:
-      - "3000:3000"
-      - "8883:8883"
-    restart: always
-
-networks:
-  student480:
-    # external: true
+  toyota:
+    image: "docker-registry.rahti.csc.fi/student480/toyota-task-one:1.0"
