@@ -68,4 +68,4 @@ data:
     -----END RSA PRIVATE KEY-----
 kind: ConfigMap
 metadata:
-  name: davidcert
+  name: mosquitto-cert

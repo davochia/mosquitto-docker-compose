@@ -4,11 +4,12 @@ metadata:
   name: mosquitto-config
 data:
   mosquitto.conf: |-
-    listener 3000
+    listener 8883
+    listener 1883
     allow_anonymous true
-    cafile conf/ca.crt
-    certfile conf/server.crt
-    keyfile conf/server.key
+    cafile /cert/ca.crt
+    certfile /cert/server.crt
+    keyfile /cert/server.key
 ---
 apiVersion: v1
 kind: Secret
