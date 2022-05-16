@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: node-red
+spec:
+  host: nodered.student480.rahtiapp.fi
+  port:
+    port: 1880
+    targetPort: 1880
+  to:
+    kind: Service
+    name: node-red-service
+status:
+  ingress: []

@@ -18,7 +18,7 @@ spec:
         name: node-red
     spec:
       containers:
-        - image: nodered/node-red
+        - image: nodered/node-red:latest
           name: node-red
           ports:
             - containerPort: 1880
@@ -29,23 +29,3 @@ spec:
         - name: node-red-data
           persistentVolumeClaim:
             claimName: node-red-claim
-
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  labels:
-    app: node-red
-  name: node-red
-spec:
-  host: nodered.student480.rahtiapp.fi
-  port:
-    port: 1880
-    targetPort: 1880
-  tls:
-    termination: passthrough
-  to:
-    kind: Service
-    name: node-red
-status:
-  ingress: []
