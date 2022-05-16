@@ -4,13 +4,11 @@ metadata:
   name: mosquitto-service
 spec:
   selector:
-    app: mosquitto
+    name: mosquitto
   ports:
     - name: port-1883
-      protocol: TCP
       port: 1883
       targetPort: 1883
     - name: port-8883
-      protocol: TCP
       port: 8883
       targetPort: 8883
